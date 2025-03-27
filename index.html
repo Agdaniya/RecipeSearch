@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <section class="landing-section">
+            <div class="search-container">
+                <input type="text" placeholder="SEARCH FOR YOUR FAVOURITE RECIPE.." class="search-input">
+                <button class="search-button">search</button>
+            </div>
+            <img src="photo.png" alt="Decorative food illustration" class="background-image">
+            <div class="scroll-indicator">Scroll to explore</div>
+        </section>
+
+        <section class="content-section">
+            <div class="filters-section">
+                <h2>Filter by Ingredients</h2>
+                <div class="ingredients-grid" id="ingredientsGrid">
+                    <!-- Ingredients will be dynamically added here -->
+                </div>
+                <div class="selected-filters" id="selectedFilters">
+                    <!-- Selected ingredients will appear here -->
+                </div>
+            </div>
+
+            <div class="categories-container">
+                <h2>Categories</h2>
+                <div class="categories-grid" id="categoriesGrid">
+                    <!-- Categories will be dynamically added here -->
+                </div>
+            </div>
+            
+            <div class="recipes-container" id="recipesContainer">
+                <!-- Recipes will be dynamically added here -->
+            </div>
+        </section>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
