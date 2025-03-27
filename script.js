@@ -75,14 +75,10 @@ async function fetchRecipesByCategory(categoryName) {
         const response = await fetch(FILTER_BY_CATEGORY_URL + categoryName);
         const data = await response.json();
         displayRecipes(data.meals, `${categoryName} Recipes`);
-        
-        // Scroll to recipes with offset for header
-        const offset = 50;
-        const recipesTop = recipesContainer.getBoundingClientRect().top + window.pageYOffset - offset;
-        window.scrollTo({
-            top: recipesTop,
-            behavior: 'smooth'
-        });
+        // Scroll after displaying recipes
+        setTimeout(() => {
+            recipesContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
     } catch (error) {
         console.error('Error fetching recipes:', error);
     }
@@ -93,19 +89,15 @@ async function searchRecipes(searchTerm) {
     try {
         recipesContainer.innerHTML = '<div class="loading">Searching recipes...</div>';
         recipesContainer.classList.add('visible');
-        
-        // Scroll to recipes container immediately
-        const offset = 50;
-        const recipesTop = recipesContainer.getBoundingClientRect().top + window.pageYOffset - offset;
-        window.scrollTo({
-            top: recipesTop,
-            behavior: 'smooth'
-        });
 
         const response = await fetch(SEARCH_BY_NAME_URL + searchTerm);
         const data = await response.json();
         if (data.meals) {
             displayRecipes(data.meals, `Search Results for "${searchTerm}"`);
+            // Scroll after displaying recipes
+            setTimeout(() => {
+                recipesContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
         } else {
             displayNoResults(searchTerm);
         }
@@ -191,14 +183,6 @@ function handleIngredientChange(ingredient, isChecked) {
         selectedIngredient = ingredient;
         updateFilterTag(ingredient);
         fetchRecipesByIngredient(ingredient);
-        
-        // Scroll to recipes container
-        const offset = 50;
-        const recipesTop = recipesContainer.getBoundingClientRect().top + window.pageYOffset - offset;
-        window.scrollTo({
-            top: recipesTop,
-            behavior: 'smooth'
-        });
     }
 }
 
@@ -236,6 +220,10 @@ async function fetchRecipesByIngredient(ingredient) {
         
         if (data.meals) {
             displayRecipes(data.meals, `Recipes with ${ingredient}`);
+            // Scroll after displaying recipes
+            setTimeout(() => {
+                recipesContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
         } else {
             displayNoResults(`recipes containing ${ingredient}`);
         }
@@ -320,12 +308,5 @@ function handleSearch() {
     const searchTerm = searchInput.value.trim();
     if (searchTerm) {
         searchRecipes(searchTerm);
-        // Scroll to recipes container
-        const offset = 50;
-        const recipesTop = recipesContainer.getBoundingClientRect().top + window.pageYOffset - offset;
-        window.scrollTo({
-            top: recipesTop,
-            behavior: 'smooth'
-        });
     }
 } 
