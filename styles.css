@@ -291,21 +291,39 @@ body {
     grid-column: 1 / -1;
     text-align: center;
     padding: 40px 20px;
-    background-color: white;
+    background-color: #FEFAE0;
     border-radius: 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
 }
 
 .no-results h2 {
     color: #283618;
     margin-bottom: 15px;
     font-size: 24px;
+    position: relative;
+    padding-bottom: 15px;
+    display: inline-block;
+}
+
+.no-results h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background-color: #BC6C25;
+    border-radius: 2px;
 }
 
 .no-results p {
     color: #606C38;
     font-size: 16px;
     opacity: 0.9;
+    max-width: 600px;
+    margin: 0 auto;
 }
 
 .filters-section {

@@ -111,11 +111,16 @@ async function searchRecipes(searchTerm) {
 function displayNoResults(searchTerm) {
     recipesContainer.innerHTML = `
         <div class="no-results">
-            <h2>No recipes found for "${searchTerm}"</h2>
-            <p>Try searching for a different meal or browse our categories below.</p>
+            <h2 class="results-title">No recipes found for "${searchTerm}"</h2>
+            <p>Try searching for a different ingredient or browse our categories below.</p>
         </div>
     `;
     recipesContainer.classList.add('visible');
+    
+    // Scroll the no results message into view
+    setTimeout(() => {
+        recipesContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
 }
 
 // Display recipes in the grid
@@ -218,17 +223,18 @@ async function fetchRecipesByIngredient(ingredient) {
         const response = await fetch(FILTER_BY_INGREDIENT_URL + ingredient);
         const data = await response.json();
         
-        if (data.meals) {
+        if (data.meals && data.meals.length > 0) {
             displayRecipes(data.meals, `Recipes with ${ingredient}`);
             // Scroll after displaying recipes
             setTimeout(() => {
                 recipesContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }, 100);
         } else {
-            displayNoResults(`recipes containing ${ingredient}`);
+            displayNoResults(ingredient);
         }
     } catch (error) {
         console.error('Error fetching recipes by ingredient:', error);
+        displayNoResults(ingredient);
     }
 }
 
